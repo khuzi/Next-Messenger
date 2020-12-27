@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider, StylesProvider } from "@material-ui/core/styles";
+import firebase from "../firebase";
+
+import { Layout } from "../components";
 
 import { theme } from "../theme";
 
@@ -19,8 +22,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider injectFirst>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <Layout>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Layout>
       </StylesProvider>
     </ThemeProvider>
   );
