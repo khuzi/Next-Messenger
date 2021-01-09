@@ -10,10 +10,10 @@ const firebaseConfig = {
   measurementId: "G-GDV91FVGDH",
 };
 
-if (typeof window !== "undefined" && !firebase.apps.length) {
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  firebase.initializeApp(firebaseConfig);
+export default function firebaseClient() {
+  if (typeof window !== "undefined" && !firebase.apps.length) {
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    firebase.initializeApp(firebaseConfig);
+  }
 }
-
-export default firebase;
