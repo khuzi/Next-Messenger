@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import Router from "next/router";
 import Link from "next/link";
 import Head from "next/head";
+import { useDispatch, useSelector } from "react-redux";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -13,6 +15,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { signin } from "../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +40,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.auth);
+
+  const userLogin = (e) => {
+    e.preventDefault();
+    dispatch(signin({ email, password }));
+  };
+
+  if (user.authenticated) {
+    Router.push("/");
+    return null;
+  }
 
   return (
     <>
@@ -52,7 +69,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={userLogin}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -63,6 +80,7 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -74,6 +92,7 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

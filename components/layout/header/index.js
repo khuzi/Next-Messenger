@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import Router from "next/router";
+import { useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Header() {
   const classes = useStyles();
+  const { firstName, lastName } = useSelector((state) => state.auth);
 
   return (
     <div className={classes.root}>
@@ -47,9 +50,22 @@ export function Header() {
             </Link>
           </div>
           <div className={classes.name}>
-            <Typography variant="subtitle1">Hi, Khuzaima</Typography>
+            <Typography
+              variant="subtitle1"
+              style={{ textTransform: "capitalize" }}
+            >
+              Hi, {`${firstName} ${lastName}`}
+            </Typography>
           </div>
-          <Button color="inherit">Logout</Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              localStorage.clear();
+              Router.push("/login");
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

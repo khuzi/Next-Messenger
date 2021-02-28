@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
-
 import { Provider } from "react-redux";
 import { useStore } from "../redux/store";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider, StylesProvider } from "@material-ui/core/styles";
-
 import firebaseClient from "../firebase";
+import { useDispatch } from "react-redux";
 
-import { Layout } from "../components";
 import { theme } from "../theme";
 
 import "../styles/globals.css";
@@ -24,6 +21,7 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
   const store = useStore(pageProps.initialReduxState);
+
   return (
     <>
       <Head>
@@ -36,16 +34,15 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <StylesProvider injectFirst>
-            <Layout>
-              <CssBaseline />
-              <Component {...pageProps} />
-            </Layout>
+            <CssBaseline />
+            <Component {...pageProps} />
           </StylesProvider>
         </ThemeProvider>
       </Provider>
     </>
   );
 }
+
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
