@@ -11,6 +11,9 @@ const {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
 } = authActionTypes;
 
 export const signUpRequest = () => {
@@ -47,6 +50,18 @@ export const loginSuccess = (loggedInUser) => {
 
 export const loginFailuare = (err) => {
   return { type: USER_LOGIN_FAILURE, payload: { err } };
+};
+
+export const logoutRequest = () => {
+  return { type: USER_LOGOUT_REQUEST };
+};
+
+export const logoutSuccess = () => {
+  return { type: USER_LOGOUT_SUCCESS };
+};
+
+export const logoutFailure = (err) => {
+  return { type: USER_LOGOUT_FAILURE, payload: { err } };
 };
 
 export const signup = ({ firstName, lastName, email, password }) => {
@@ -89,13 +104,11 @@ export const signup = ({ firstName, lastName, email, password }) => {
 };
 
 export const signin = (user) => {
-  console.log(user);
   return async (dispatch) => {
     dispatch(loginRequest());
     auth()
       .signInWithEmailAndPassword(user.email, user.password)
       .then((data) => {
-        console.log("Data = ", data);
         const name = data.user.displayName.split(" ");
         const firstName = name[0];
         const lastName = name[1];
@@ -125,5 +138,21 @@ export const isLoggedInUser = () => {
     } else {
       dispatch(loginFailuare("Login again please."));
     }
+  };
+};
+
+export const logout = () => {
+  return async (dispatch) => {
+    dispatch(logoutRequest());
+    auth()
+      .signOut()
+      .then(() => {
+        dispatch(logoutSuccess());
+        localStorage.clear();
+        Router.push("/login");
+      })
+      .catch((err) => {
+        dispatch(loginFailuare(err));
+      });
   };
 };

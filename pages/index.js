@@ -9,7 +9,7 @@ import { Layout } from "../components";
 export default function Home() {
   const dispatch = useDispatch();
   if (typeof window === "undefined") {
-    return "Loading...";
+    return <p>Loading...</p>;
   }
 
   const isUser =

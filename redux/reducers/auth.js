@@ -7,6 +7,9 @@ const {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
 } = authActionTypes;
 
 const initialState = {
@@ -56,6 +59,17 @@ export const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         authenticated: false,
         authenticating: false,
+        error: payload.err.message,
+      };
+    case USER_LOGOUT_REQUEST:
+      return { ...state };
+    case USER_LOGOUT_SUCCESS:
+      return {
+        ...initialState,
+      };
+    case USER_LOGOUT_FAILURE:
+      return {
+        ...state,
         error: payload.err.message,
       };
     default:

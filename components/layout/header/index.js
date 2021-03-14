@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import Router from "next/router";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+
+import { logout } from "../../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
 
 export function Header() {
   const classes = useStyles();
-  const { firstName, lastName } = useSelector((state) => state.auth);
+  const { firstName, lastName, authenticated } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.root}>
@@ -42,9 +45,11 @@ export function Header() {
             </Typography>
           </Link>
           <div className={classes.lgn}>
-            <Link href="/login">
-              <Button color="inherit">Login</Button>
-            </Link>
+            {!authenticated && (
+              <Link href="/login">
+                <Button color="inherit">Login</Button>
+              </Link>
+            )}
             <Link href="/signup">
               <Button color="inherit">Sign Up</Button>
             </Link>
@@ -57,13 +62,7 @@ export function Header() {
               Hi, {`${firstName} ${lastName}`}
             </Typography>
           </div>
-          <Button
-            color="inherit"
-            onClick={() => {
-              localStorage.clear();
-              Router.push("/login");
-            }}
-          >
+          <Button color="inherit" onClick={() => dispatch(logout())}>
             Logout
           </Button>
         </Toolbar>
