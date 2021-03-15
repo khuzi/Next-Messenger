@@ -1,0 +1,13 @@
+.instance {
+    background: #fff;
+    width: 90%;
+    margin: auto;
+    padding: 0.5rem;
+    border-radius: 25px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+.instance_name {
+    margin-left: 1.5rem;
+}

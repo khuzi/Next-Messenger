@@ -46,13 +46,15 @@ export function Header() {
           </Link>
           <div className={classes.lgn}>
             {!authenticated && (
-              <Link href="/login">
-                <Button color="inherit">Login</Button>
-              </Link>
+              <>
+                <Link href="/login">
+                  <Button color="inherit">Login</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button color="inherit">Sign Up</Button>
+                </Link>
+              </>
             )}
-            <Link href="/signup">
-              <Button color="inherit">Sign Up</Button>
-            </Link>
           </div>
           <div className={classes.name}>
             <Typography

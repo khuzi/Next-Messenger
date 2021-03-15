@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useDispatch } from "react-redux";
 
 import { isLoggedInUser } from "../redux/actions";
-import { Layout } from "../components";
+import { Layout, Chat } from "../components";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function Home() {
           <title>Next Messenger</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        hello
+        <Chat />
       </Layout>
     );
   }

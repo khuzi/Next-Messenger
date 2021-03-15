@@ -1,0 +1,6 @@
+.chats_window {
+  padding-top: 0.5rem;
+  overflow: auto;
+  background: #eee;
+  height: 100%;
+}
