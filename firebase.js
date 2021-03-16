@@ -1,4 +1,9 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
+import "firebase/analytics";
+import "firebase/performance";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCuhoYzzZehHXf_8LRuMx3ifBaUU2z8MEg",
@@ -10,10 +15,16 @@ const firebaseConfig = {
   measurementId: "G-GDV91FVGDH",
 };
 
-export default function firebaseClient() {
-  if (typeof window !== "undefined" && !firebase.apps.length) {
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+  // Check that `window` is in scope for the analytics module!
+  if (typeof window !== "undefined") {
+    // Enable analytics. https://firebase.google.com/docs/analytics/get-started
+    if ("measurementId" in firebaseConfig) {
+      firebase.analytics();
+      firebase.performance();
+    }
   }
 }
+
+export default firebase;

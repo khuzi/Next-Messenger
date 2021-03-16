@@ -1,5 +1,5 @@
 import Router from "next/router";
-import firebase from "firebase/app";
+import firebase from "../../firebase";
 const { auth, firestore } = firebase;
 
 import { authActionTypes } from "./actionTypes";

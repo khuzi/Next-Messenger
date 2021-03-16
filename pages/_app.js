@@ -5,15 +5,12 @@ import { Provider } from "react-redux";
 import { useStore } from "../redux/store";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider, StylesProvider } from "@material-ui/core/styles";
-import firebaseClient from "../firebase";
-import { useDispatch } from "react-redux";
 
 import { theme } from "../theme";
 
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  firebaseClient();
   useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
