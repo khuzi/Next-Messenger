@@ -29,11 +29,11 @@ export function ChatsWindow() {
 
   return (
     <Grid item xs={3} className={styles.chats_window}>
-      {user.users?.map(({ uid, firstName, lastName, online }) => (
+      {user.users?.map(({ uid, firstName, lastName, isOnline }) => (
         <ChatInstance
           key={uid}
           name={`${firstName} ${lastName}`}
-          online={online}
+          online={isOnline}
         />
       ))}
     </Grid>
