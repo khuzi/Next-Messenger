@@ -81,6 +81,7 @@ export const signup = ({ firstName, lastName, email, password }) => {
               lastName: lastName,
               uid: data.user.uid,
               createdAt: new Date(),
+              isOnline: true,
             });
           })
           .then(() => {

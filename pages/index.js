@@ -1,31 +1,11 @@
-import React, { useEffect } from "react";
-import Router from "next/router";
+import React from "react";
 import Head from "next/head";
-import { useDispatch } from "react-redux";
 
-import { isLoggedInUser } from "../redux/actions";
-import { Layout, Chat } from "../components";
+import { Layout, Chat, PrivateRoute } from "../components";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  if (typeof window === "undefined") {
-    return <p>Loading...</p>;
-  }
-
-  const isUser =
-    typeof window !== "undefined" && localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
-
-  if (!isUser) {
-    Router.push("/login");
-    return null;
-  } else {
-    useEffect(() => {
-      dispatch(isLoggedInUser());
-    }, []);
-
-    return (
+  return (
+    <PrivateRoute>
       <Layout>
         <Head>
           <title>Next Messenger</title>
@@ -33,6 +13,6 @@ export default function Home() {
         </Head>
         <Chat />
       </Layout>
-    );
-  }
+    </PrivateRoute>
+  );
 }
