@@ -76,7 +76,7 @@ export const signup = ({ firstName, lastName, email, password }) => {
             displayName: name,
           })
           .then(() => {
-            db.collection("users").add({
+            db.collection("users").doc(data.user.uid).set({
               firstName: firstName,
               lastName: lastName,
               uid: data.user.uid,
@@ -94,6 +94,9 @@ export const signup = ({ firstName, lastName, email, password }) => {
             localStorage.setItem("user", JSON.stringify(loggedInUser));
             console.log("User registered successfully....!");
             dispatch(signUpSuccess(loggedInUser));
+          })
+          .catch((err) => {
+            console.log(err);
           });
       })
       .catch((err) => {
@@ -108,17 +111,28 @@ export const signin = (user) => {
     auth()
       .signInWithEmailAndPassword(user.email, user.password)
       .then((data) => {
-        const name = data.user.displayName.split(" ");
-        const firstName = name[0];
-        const lastName = name[1];
-        const loggedInUser = {
-          firstName,
-          lastName,
-          uid: data.user.uid,
-          email: data.user.email,
-        };
-        localStorage.setItem("user", JSON.stringify(loggedInUser));
-        dispatch(loginSuccess(loggedInUser));
+        const db = firestore();
+        db.collection("users")
+          .doc(data.user.uid)
+          .update({
+            isOnline: true,
+          })
+          .then(() => {
+            const name = data.user.displayName.split(" ");
+            const firstName = name[0];
+            const lastName = name[1];
+            const loggedInUser = {
+              firstName,
+              lastName,
+              uid: data.user.uid,
+              email: data.user.email,
+            };
+            localStorage.setItem("user", JSON.stringify(loggedInUser));
+            dispatch(loginSuccess(loggedInUser));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         dispatch(loginFailuare(err));
@@ -140,18 +154,29 @@ export const isLoggedInUser = () => {
   };
 };
 
-export const logout = () => {
+export const logout = (uid) => {
   return async (dispatch) => {
     dispatch(logoutRequest());
-    auth()
-      .signOut()
-      .then(() => {
-        dispatch(logoutSuccess());
-        localStorage.clear();
-        Router.push("/login");
+    const db = firestore();
+    db.collection("users")
+      .doc(uid)
+      .update({
+        isOnline: false,
       })
-      .catch((err) => {
-        dispatch(loginFailuare(err));
+      .then(() => {
+        auth()
+          .signOut()
+          .then(() => {
+            dispatch(logoutSuccess());
+            localStorage.clear();
+            Router.push("/login");
+          })
+          .catch((err) => {
+            dispatch(loginFailuare(err));
+          });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 };

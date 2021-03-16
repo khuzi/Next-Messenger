@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Header() {
   const classes = useStyles();
-  const { firstName, lastName, authenticated } = useSelector(
+  const { firstName, lastName, authenticated, uid } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export function Header() {
               Hi, {`${firstName} ${lastName}`}
             </Typography>
           </div>
-          <Button color="inherit" onClick={() => dispatch(logout())}>
+          <Button color="inherit" onClick={() => dispatch(logout(uid))}>
             Logout
           </Button>
         </Toolbar>
