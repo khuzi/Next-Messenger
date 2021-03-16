@@ -23,7 +23,6 @@ export const signUpRequest = () => {
 };
 
 export const signUpSuccess = (loggedInUser) => {
-  Router.push("/");
   return {
     type: USER_SIGNUP_SUCCESS,
     payload: { user: loggedInUser },
@@ -41,7 +40,6 @@ export const loginRequest = () => {
 };
 
 export const loginSuccess = (loggedInUser) => {
-  Router.push("/");
   return {
     type: USER_LOGIN_SUCCESS,
     payload: { user: loggedInUser },

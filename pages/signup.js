@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 
@@ -11,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { signup } from "../redux/actions";
 
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-
+  const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState("");
@@ -56,6 +57,11 @@ export default function SignUp() {
     };
     dispatch(signup(user));
   };
+
+  if (user.authenticated) {
+    Router.push("/");
+    return null;
+  }
 
   return (
     <>

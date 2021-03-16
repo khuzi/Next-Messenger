@@ -5,9 +5,9 @@ import { MessageBox } from "./messageBox";
 
 export function ChatWindow() {
   return (
-    <div style={{ padding: "1rem" }}>
+    <Grid item xs={9} style={{ padding: "1rem" }}>
       <MessageBox />
       <MessageBox right />
-    </div>
+    </Grid>
   );
 }
