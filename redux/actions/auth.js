@@ -168,8 +168,8 @@ export const logout = (uid) => {
           .signOut()
           .then(() => {
             dispatch(logoutSuccess());
-            localStorage.clear();
             Router.push("/login");
+            localStorage.clear();
           })
           .catch((err) => {
             dispatch(loginFailuare(err));

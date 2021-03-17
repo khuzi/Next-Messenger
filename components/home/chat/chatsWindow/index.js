@@ -7,9 +7,8 @@ import { getRealtimeUsers } from "../../../../redux/actions";
 
 import styles from "./chatsWindow.module.css";
 
-export function ChatsWindow() {
+export function ChatsWindow({ onSetChatUser }) {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   const user = useSelector((state) => state.user);
   let unsubscribe;
   useEffect(() => {
@@ -34,6 +33,7 @@ export function ChatsWindow() {
           key={uid}
           name={`${firstName} ${lastName}`}
           online={isOnline}
+          onClickInstance={onSetChatUser}
         />
       ))}
     </Grid>
