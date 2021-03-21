@@ -2,11 +2,11 @@ import React from "react";
 
 import styles from "./messageBox.module.css";
 
-export function MessageBox({ right }) {
+export function MessageBox({ left, msg }) {
   return (
-    <div className={right ? styles.warpper_right : styles.warpper_left}>
-      <div className={right ? styles.message_right : styles.message_left}>
-        Hello
+    <div className={left ? styles.warpper_left : styles.warpper_right}>
+      <div className={left ? styles.message_left : styles.message_right}>
+        {msg}
       </div>
     </div>
   );

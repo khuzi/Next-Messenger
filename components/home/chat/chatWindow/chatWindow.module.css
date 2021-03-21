@@ -13,3 +13,17 @@
   font-weight: bold;
   letter-spacing: 0.5px;
 }
+
+.msg_input > *:nth-child(1) {
+  width: 100%;
+}
+
+.btn {
+  background: #045762;
+  color: #fff;
+}
+
+.btn:hover {
+  background: #045762;
+  opacity: 0.8;
+}

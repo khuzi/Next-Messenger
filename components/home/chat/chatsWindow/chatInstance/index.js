@@ -1,16 +1,31 @@
 import React from "react";
 import { Grid, Avatar, Typography } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { useDispatch, useSelector } from "react-redux";
+
+import { chatInit } from "../../../../../redux/actions";
 
 import styles from "./chatInstance.module.css";
 
-export function ChatInstance({ name, online, onClickInstance }) {
+export function ChatInstance({ name, online, chatUserUid }) {
+  const loginUser = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const onChatInit = () => {
+    dispatch(
+      chatInit({
+        chatUserName: name,
+        chatUserUid: chatUserUid,
+        loginUserUid: loginUser.uid,
+      })
+    );
+  };
   return (
     <Grid
       container
       alignItems="center"
       className={styles.instance}
-      onClick={() => onClickInstance(name)}
+      onClick={onChatInit}
     >
       <Grid item xs={1}>
         <Avatar>

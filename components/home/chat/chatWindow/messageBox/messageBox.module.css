@@ -19,6 +19,7 @@
   color: #8495a3;
   display: inline-block;
   letter-spacing: 1px;
+  margin-bottom: 0.5rem;
 }
 
 .message_right {
@@ -31,4 +32,5 @@
   display: inline-block;
   text-align: right;
   letter-spacing: 1px;
+  margin-bottom: 0.5rem;
 }

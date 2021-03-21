@@ -1,6 +1,7 @@
-import { userActionTypes } from "./actionTypes";
 import firebase from "../../firebase";
 const { firestore } = firebase;
+
+import { userActionTypes } from "./actionTypes";
 
 const { GET_REALTIME_USERS } = userActionTypes;
 
